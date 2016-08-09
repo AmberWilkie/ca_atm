@@ -21,24 +21,24 @@ describe Account do
   end
 
   it 'checks to see if account is active' do
-    expect(subject.account_status).to eq 'active'
+    expect(subject.account_status).to eq :active
   end
 
   it 'account status can be set to disabled' do
-    subject.account_status = 'disabled'
-    expect(subject.account_status).to eq 'disabled'
+    subject.account_status = :disabled
+    expect(subject.account_status).to eq :disabled
   end
 
   it 'cannot change pin' do
     expect{subject.pin_code=1234}.to raise_error(NoMethodError)
   end
 
-  it 'has a balance' do
+  it 'has a balance of 100 on initialize' do
     expect(subject.balance).to eq 100
   end
 
   it 'has an expiration date that is before today' do
-    expect(subject.exp_date).to eq "01/20"
+    expect(subject.exp_date).to be > Date.today.strftime('%m/%y')
   end
 
   it 'is expected to have an expiration date on initialize' do

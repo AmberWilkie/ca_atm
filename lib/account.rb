@@ -6,7 +6,7 @@ class Account
   STANDARD_VALIDITY_YRS = 5
 
   def initialize()
-    @account_status = 'active'
+    @account_status = :active
     randomize_pin_code #set pin_code
     @balance = 100
     set_expire_date #set exp_date
@@ -20,7 +20,7 @@ class Account
     @pin_code
   end
 
-  def account_is_active?(account_status)
+  def account_is_active?()
     @account_status
   end
 
@@ -37,7 +37,7 @@ class Account
   end
 
   def set_expire_date
-    @exp_date = Date.today.next_year(Account::STANDARD_VALIDITY_YRS).strftime('%m/%y')
+    @exp_date = Date.today.next_year(STANDARD_VALIDITY_YRS).strftime('%m/%y')
   end
 
 
