@@ -25,7 +25,7 @@ describe Account do
   end
 
   it 'account status can be set to disabled' do
-    subject.account_status = :disabled
+    subject.deactivate
     expect(subject.account_status).to eq :disabled
   end
 
