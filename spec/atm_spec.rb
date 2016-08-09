@@ -49,4 +49,8 @@ describe Atm do
     expect(subject.withdraw(50, '1234', account, :disabled)).to eq expected_output
   end
 
+  xit 'decreases amount in account by withdrawal' do
+      expect(subject.account.balance).to eq 
+  end
+
 end
