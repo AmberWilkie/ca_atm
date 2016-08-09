@@ -1,20 +1,20 @@
 require 'date'
 
 class Account
-  attr_accessor :owner, :account_status, :balance, :exp_date
+  attr_accessor :person, :account_status, :balance, :exp_date
   attr_reader :pin_code
   STANDARD_VALIDITY_YRS = 5
 
-  def initialize(owner)
-    @owner = owner
+  def initialize(person)
+    @person = person
     @account_status = :active
     randomize_pin_code #set pin_code
     @balance = 100
     set_expire_date #set exp_date
   end
 
-  def account_has_an_owner?(owner)
-    @owner
+  def account_has_an_person?(person)
+    @person
   end
 
   def pin_code_is_correct?(pin_code)
