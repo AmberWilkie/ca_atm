@@ -10,7 +10,7 @@ describe Account do
   end
 
   it 'validates the account has an person' do
-    expect(subject.owner.name).to eq 'Jeff Miles'
+    expect(subject.person.name).to eq 'Jeff Miles'
   end
 
   it 'validates PIN code has the right number of digits' do
