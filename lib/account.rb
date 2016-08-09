@@ -5,7 +5,8 @@ class Account
   attr_reader :pin_code
   STANDARD_VALIDITY_YRS = 5
 
-  def initialize()
+  def initialize(owner)
+    @owner = owner
     @account_status = :active
     randomize_pin_code #set pin_code
     @balance = 100

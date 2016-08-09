@@ -1,16 +1,15 @@
 require './lib/account.rb'
 
 describe Account do
-  let(:owner) {double('Owner')}
-  subject { Account.new()}
+  let(:person) {double('Person')}
+  subject { described_class.new(person) }
 
   before do
-    allow(owner).to receive(:name).and_return('Jeff Miles')
-    allow(owner).to receive(:cash).and_return(0)
+    allow(person).to receive(:name).and_return('Jeff Miles')
+    allow(person).to receive(:cash).and_return(0)
   end
 
-  it 'validates the account has an owner' do
-    subject.owner = owner
+  it 'validates the account has an person' do
     expect(subject.owner.name).to eq 'Jeff Miles'
   end
 
