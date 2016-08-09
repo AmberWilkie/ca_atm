@@ -5,8 +5,9 @@ class Account
   attr_reader :pin_code
   STANDARD_VALIDITY_YRS = 5
 
-  def initialize(person)
+  def initialize(attrs = {})
     @person = person
+    set_owner(attrs[:owner])
     @account_status = :active
     randomize_pin_code #set pin_code
     @balance = 100
@@ -45,5 +46,14 @@ class Account
     @account_status = :disabled
   end
 
+  private
+
+  def set_owner(obj)
+    obj == nil ? missing_owner : @owner = obj
+  end
+
+  def missing_owner
+    raise 'An account owner is required'
+  end
 
 end
