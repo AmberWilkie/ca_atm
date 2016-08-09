@@ -1,7 +1,7 @@
 require 'date'
 
 class Account
-  attr_accessor :person, :account_status, :balance, :exp_date
+  attr_accessor :person, :account_status, :balance, :exp_date, :owner
   attr_reader :pin_code
   STANDARD_VALIDITY_YRS = 5
 

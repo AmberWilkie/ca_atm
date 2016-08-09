@@ -17,7 +17,7 @@ describe Person do
     expect(subject.cash).to eq 0
   end
 
-  it 'is expected to have a :account attribute' do
+  it 'is expected to have an :account attribute' do
     expect(subject.account).to be nil
   end
 
@@ -31,7 +31,7 @@ describe Person do
     end
 
     it 'with himself as an owner' do
-      expect(subject.account.owner).to be subject
+      expect(subject.account.owner).to be subject # I don't really get this one - isn't subject the instance...? I'm confused.
     end
   end
 
