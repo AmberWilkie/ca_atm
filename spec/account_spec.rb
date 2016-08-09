@@ -14,8 +14,10 @@ describe Account do
     expect(subject.owner.name).to eq 'Jeff Miles'
   end
 
-  it 'validates PIN code is correct' do
-    expect(subject.pin_code).to eq 5555
+  it 'validates PIN code has the right number of digits' do
+    number = subject.pin_code
+    number_length = Math.log10(number).to_i + 1
+    expect(number_length).to eq 4
   end
 
   it 'checks to see if account is active' do

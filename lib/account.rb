@@ -4,7 +4,7 @@ class Account
 
   def initialize()
     @account_status = 'active'
-    @pin_code = 5555
+    randomize_pin_code #set pin_code
     @balance = 100
     @exp_date = '01/20'
   end
@@ -27,6 +27,10 @@ class Account
 
   def exp_date_is_before_today?(exp_date)
     Date.strptime(exp_date, '%m/%y') < Date.today
+  end
+
+  def randomize_pin_code
+    @pin_code = rand(1000..9999)
   end
 
 
