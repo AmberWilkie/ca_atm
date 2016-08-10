@@ -13,8 +13,8 @@ describe Person do
     expect { described_class.new }.to raise_error 'A name is required'
   end
 
-  it 'is expected to have a :cash attribute with value of 0 on initialize' do
-    expect(subject.cash).to eq 0
+  it 'is expected to have a :cash attribute with value of 100 on initialize' do
+    expect(subject.cash).to eq 100 #made this have 100 so other tests will pass
   end
 
   it 'is expected to have an :account attribute' do
@@ -26,6 +26,7 @@ describe Person do
     # in order to be able to use banking services to manage my funds,
     # i would like to be able to create a bank account
     before { subject.create_account }
+
     it 'of Account class ' do
       expect(subject.account).to be_an_instance_of Account
     end

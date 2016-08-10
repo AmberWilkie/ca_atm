@@ -1,17 +1,16 @@
 require 'date'
 
 class Account
-  attr_accessor :person, :account_status, :balance, :exp_date, :owner
+  attr_accessor :person, :account_status, :balance, :exp_date, :owner, :name
   attr_reader :pin_code
   STANDARD_VALIDITY_YRS = 5
 
   def initialize(attrs = {})
-    @person = person
-    set_owner(attrs[:owner])
+    @owner = set_owner(attrs[:owner])
     @account_status = :active
-    randomize_pin_code #set pin_code
+    @pin_code = randomize_pin_code
     @balance = 100
-    set_expire_date #set exp_date
+    @exp_date = set_expire_date
   end
 
   def account_has_an_person?(person)
@@ -35,11 +34,11 @@ class Account
   end
 
   def randomize_pin_code
-    @pin_code = rand(1000..9999)
+    rand(1000..9999)
   end
 
   def set_expire_date
-    @exp_date = Date.today.next_year(STANDARD_VALIDITY_YRS).strftime('%m/%y')
+    Date.today.next_year(STANDARD_VALIDITY_YRS).strftime('%m/%y')
   end
 
   def deactivate
@@ -49,11 +48,19 @@ class Account
   private
 
   def set_owner(obj)
-    obj == nil ? missing_owner : @owner = obj
+    obj == nil ? missing_owner : obj
   end
+
+  # def set_name(obj)
+  #   obj[:name] == nil ? missing_name : obj
+  # end
 
   def missing_owner
     raise 'An account owner is required'
   end
+  #
+  # def missing_name
+  #   raise 'This account has no associated name'
+  # end
 
 end
