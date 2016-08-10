@@ -45,18 +45,49 @@ describe Person do
     end
   end
 
-  subject { described_class.new(name: 'Thomas', cash: 100) }
 
   describe 'can manage funds if an account been created' do
+
+    subject { described_class.new(name: 'Amber', cash: 100) }
+
     let(:atm) { Atm.new }
     # As a Person with a Bank Account,
     # in order to be able to put my funds in the account ,
     # i would like to be able to make a deposit
     before { subject.create_account }
+
     it 'can deposit funds' do
       expect(subject.deposit(50)).to be_truthy
     end
+
+    it 'deducts from cash if funds are added to account balance' do
+      subject.deposit(100)
+      expect(subject.account.balance).to be 100
+      expect(subject.cash).to be 0
+    end
+
+    it 'can withdraw funds' do
+      subject.deposit(100)
+      command = lambda { subject.withdraw_from_atm(amount: 100, pin: subject.account.pin_code, account: subject.account, atm: atm) }
+      expect(command.call).to be_truthy
+    end
+
+    it 'expects withdraw to return error if no ATM is passed in' do
+      command = lambda {subject.withdraw_from_atm(amount: 100, pin: subject.account.pin_code, account: subject.account)}
+      expect{command.call}.to raise_error RuntimeError, 'An ATM is required'
+    end
+
+    it 'adds funds to @cash, deducts from @account.balance' do
+      # binding.pry
+      subject.withdraw_from_atm(amount: 100, pin: subject.account.pin_code, account: subject.account, atm: atm)
+      expect(subject.account.balance).to be 0
+      expect(subject.cash).to be 100
+    end
+
+    it "references ATM's own withdraw method" do
+
+    end
+
+
   end
-
-
 end

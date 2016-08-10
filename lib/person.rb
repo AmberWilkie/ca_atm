@@ -7,7 +7,7 @@ class Person
 
   def initialize(attrs = {})
     @name = set_name(attrs)
-    @cash = set_cash(attrs)
+    @cash = set_cash(attrs) || 0
   end
 
   def create_account
@@ -20,6 +20,14 @@ class Person
      else
        raise "You don't have the cash"
      end
+  end
+
+  def withdraw_from_atm(args = {})
+    args[:atm] == nil ? missing_atm : atm = args[:atm]
+    account = @account
+    amount = args[:amount]
+    pin = args[:pin]
+
   end
 
   private
@@ -46,6 +54,10 @@ class Person
     else
       attrs[:cash]
     end
+  end
+
+  def missing_atm
+    raise RuntimeError, 'An ATM is required'
   end
 
 end

@@ -32,8 +32,8 @@ describe Account do
     expect{subject.pin_code=1234}.to raise_error(NoMethodError)
   end
 
-  it 'has a balance of 100 on initialize' do
-    expect(subject.balance).to eq 100
+  it 'has a balance of 0 on initialize' do
+    expect(subject.balance).to eq 0
   end
 
   it 'has an expiration date that is before today' do

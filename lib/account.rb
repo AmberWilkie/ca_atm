@@ -9,7 +9,7 @@ class Account
     @owner = set_owner(attrs[:owner])
     @account_status = :active
     @pin_code = randomize_pin_code
-    @balance = 100
+    @balance = 0
     @exp_date = set_expire_date
   end
 

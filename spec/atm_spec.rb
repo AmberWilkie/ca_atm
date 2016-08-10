@@ -13,44 +13,44 @@ describe Atm do
   end
 
   it 'reduces funds at withdrawal' do
-    subject.withdraw(50, '1234', account, :active)
+    subject.withdraw(amount: 50, pin_code: '1234', account: account, account_status: :active)
     expect(subject.funds).to eq 950
   end
 
   it 'allows withdrawal if account has the funds available' do
     expected_output = { status: true, message: 'success', date: Date.today, amount: 45, account: :active, bills: [20, 20, 5] }
-    expect(subject.withdraw(45, '1234', account, :active)).to eq expected_output
+    expect(subject.withdraw(amount: 45, pin_code: '1234', account: account, account_status: :active)).to eq expected_output
   end
 
   it 'rejects withdraw if account has insufficient funds' do
     expected_output = { status: true, message: 'insufficient funds', date: Date.today, account: :active }
-    expect(subject.withdraw(105, '1234', account, :active)).to eq expected_output
+    expect(subject.withdraw(amount: 105, pin_code: '1234', account: account, account_status: :active)).to eq expected_output
   end
 
   it 'rejects withdraw if ATM has insufficient funds' do
     subject.funds = 50
     expected_output = { status: false, message: 'insufficient funds in ATM', date: Date.today, account: :active }
-    expect(subject.withdraw(100, '1234', account, :active)).to eq expected_output
+    expect(subject.withdraw(amount: 100, pin_code: '1234', account: account, account_status: :active)).to eq expected_output
   end
 
   it 'rejects withdraw if pin is wrong' do
-    expected_output = { status: false, message: 'wrong pin', date: Date.today, account: :active }
-    expect(subject.withdraw(50, 9999, account, :active)).to eq expected_output
+    expected_output = { status: false, message: 'wrong pin', date: Date.today, account_status: :active }
+    expect(subject.withdraw(amount: 50, pin_code: '9999', account: account, account_status: :active)).to eq expected_output
   end
 
   it 'rejects withdraw if card is expired' do
     allow(account).to receive(:exp_date).and_return('12/15')
     expected_output = { status: false, message: 'card expired', date: Date.today, account: :active }
-    expect(subject.withdraw(6, '1234', account, :active)).to eq expected_output
+    expect(subject.withdraw(amount: 10, pin_code: '1234', account: account, account_status: :active)).to eq expected_output
   end
 
   it 'rejects withdraw if account is disabled' do
     expected_output = { status: false, message: 'account disabled', date: Date.today, account: :disabled }
-    expect(subject.withdraw(50, '1234', account, :disabled)).to eq expected_output
+    expect(subject.withdraw(amount: 50, pin_code: '1234', account: account, account_status: :disabled)).to eq expected_output
   end
 
   xit 'decreases amount in account by withdrawal' do
-      expect(subject.account.balance).to eq 
+      expect(subject.account.balance).to eq
   end
 
 end
