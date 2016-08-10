@@ -18,7 +18,7 @@ describe Atm do
   end
 
   it 'allows withdrawal if account has the funds available' do
-    expected_output = { status: true, message: 'success', date: Date.today, amount: 45, account: :active, bills: [20, 20, 5] }
+    expected_output = { status: true, message: 'success', date: Date.today, account_status: :active, amount: 45, bills: [20, 20, 5] }
     expect(subject.withdraw(amount: 45, pin_code: '1234', account: account, account_status: :active)).to eq expected_output
   end
 

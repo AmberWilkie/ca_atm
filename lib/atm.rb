@@ -10,23 +10,18 @@ class Atm
   def withdraw(attrs = {})
     account = attrs[:account]
     @account_status = attrs[:account_status] || :active
-    # binding.pry
+
     case
     when incorrect_pin?(attrs[:pin_code], account.pin_code) then
-      error_message = 'wrong pin'
-      receipt_message(error_message)
+      receipt_message('wrong pin')
     when card_expired?(account.exp_date) then
-      error_message = 'card expired'
-      receipt_message(error_message)
+      receipt_message('card expired')
     when account_inactive?(@account_status) then
-      error_message = 'account disabled'
-      receipt_message(error_message)
+      receipt_message('account disabled')
     when insufficient_funds_in_account?(attrs[:amount], attrs[:account]) then
-      error_message = 'insufficient funds'
-      receipt_message(error_message)
+      receipt_message('insufficient funds')
     when insufficient_funds_in_atm?(attrs[:amount]) then
-      error_message = 'insufficient funds in ATM'
-      receipt_message(error_message)
+      receipt_message('insufficient funds in ATM')
     else
       perform_transaction(attrs[:amount], attrs[:account], attrs[:account_status])
     end
@@ -34,11 +29,8 @@ class Atm
 
   def perform_transaction(amount, account, account_status)
     @funds -= amount
-
-
     account.balance -= amount
-
-    expected_output = { status: true, message: 'success', date: Date.today, amount: amount, account: account_status, bills: add_bills(amount) }
+    receipt_message_success('success', amount)
   end
 
   private
@@ -80,5 +72,9 @@ class Atm
 
   def receipt_message(message_error)
     { status: false, message: message_error, date: Date.today, account_status: @account_status }
+  end
+
+  def receipt_message_success(message_success, amount)
+    { status: true, message: message_success, date: Date.today, account_status: @account_status, amount: amount, bills: add_bills(amount) }
   end
 end
