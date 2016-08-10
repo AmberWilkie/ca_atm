@@ -7,10 +7,8 @@ class Person
 
   def initialize(attrs = {})
     @name = set_name(attrs)
-    @cash = 100
+    @cash = set_cash(attrs)
   end
-
-
 
   def create_account
     @account = Account.new(owner: self)
@@ -39,6 +37,14 @@ class Person
       raise 'A name is required'
     else
       attrs[:name]
+    end
+  end
+
+  def set_cash(attrs)
+    if attrs[:cash] == nil
+      raise 'You have no cash'
+    else
+      attrs[:cash]
     end
   end
 
