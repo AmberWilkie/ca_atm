@@ -83,11 +83,5 @@ describe Person do
       expect(subject.account.balance).to be 0
       expect(subject.cash).to be 100
     end
-
-    it "references ATM's own withdraw method" do
-
-    end
-
-
   end
 end

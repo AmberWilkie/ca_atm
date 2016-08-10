@@ -1,4 +1,5 @@
 require './lib/account.rb'
+require './lib/atm.rb'
 require 'pry'
 
 class Person
@@ -7,7 +8,8 @@ class Person
 
   def initialize(attrs = {})
     @name = set_name(attrs)
-    @cash = set_cash(attrs) || 0
+    attrs[:cash] == nil ? @cash = 0 : @cash = attrs[:cash]
+    # @cash = set_cash(attrs) || 0
   end
 
   def create_account
@@ -18,7 +20,8 @@ class Person
      if @cash >= amount
        perform_deposit(amount)
      else
-       raise "You don't have the cash"
+       'You have no cash'
+      #  raise "You don't have the cash"
      end
   end
 
@@ -27,7 +30,7 @@ class Person
     account = @account
     amount = args[:amount]
     pin = args[:pin]
-
+    atm.withdraw(account: account, amount: amount, pin_code: pin)
   end
 
   private
@@ -48,13 +51,13 @@ class Person
     end
   end
 
-  def set_cash(attrs)
-    if attrs[:cash] == nil
-      raise 'You have no cash'
-    else
-      attrs[:cash]
-    end
-  end
+  # def set_cash(attrs)
+  #   if attrs[:cash] == nil
+  #     raise 'You have no cash'
+  #   else
+  #     attrs[:cash]
+  #   end
+  # end
 
   def missing_atm
     raise RuntimeError, 'An ATM is required'

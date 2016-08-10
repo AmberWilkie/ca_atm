@@ -48,9 +48,4 @@ describe Atm do
     expected_output = { status: false, message: 'account disabled', date: Date.today, account: :disabled }
     expect(subject.withdraw(amount: 50, pin_code: '1234', account: account, account_status: :disabled)).to eq expected_output
   end
-
-  xit 'decreases amount in account by withdrawal' do
-      expect(subject.account.balance).to eq
-  end
-
 end

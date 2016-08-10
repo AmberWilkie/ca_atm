@@ -8,9 +8,9 @@ class Atm
   end
 
   def withdraw(attrs = {})
-    # amount, pin_code, account, account_status)
     account = attrs[:account]
     account_status = attrs[:account_status] || :active
+    # binding.pry
     case
     when incorrect_pin?(attrs[:pin_code], account.pin_code) then
       { status: false, message: 'wrong pin', date: Date.today, account_status: account_status }
@@ -29,7 +29,10 @@ class Atm
 
   def perform_transaction(amount, account, account_status)
     @funds -= amount
+
+
     account.balance -= amount
+
     expected_output = { status: true, message: 'success', date: Date.today, amount: amount, account: account_status, bills: add_bills(amount) }
   end
 
@@ -47,7 +50,7 @@ class Atm
   end
 
   def missing_pin
-    raise_error 'You entered no pin'
+    raise 'You entered no pin'
   end
 
   def card_expired?(exp_date)
