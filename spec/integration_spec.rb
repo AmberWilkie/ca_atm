@@ -1,7 +1,7 @@
 require './lib/person.rb'
 
-describe 'Fucking everything' do
-  it 'fucks up or not' do
+describe 'a person uses his account to access the atm' do
+  it 'allows a withdrawal by a person' do
     amber = Person.new(cash:100, name: "Amber")
     atm = Atm.new
     amber.create_account
