@@ -21,4 +21,4 @@ Instructions
   * Account balance is now 50
   * ATM funds are now 950
 
-Created for and with significant code snippets from [Craft Academy!] (http://www.craftacademy.se)
+Created for and with significant code snippets from [Craft Academy] (http://www.craftacademy.se)
